@@ -1,5 +1,13 @@
 <template>
   <div class="home">
+    <div class="header">
+      <div class="logo">
+        eStation
+      </div>
+      <div class="contacts header_item">Contacts</div>
+      <div class="account header_item" @click="$router.push('/login')">Login</div>
+      <div class="account header_item">My account</div>
+    </div>
     <div class="search_container">
       <div class="swithcer">
         <div
@@ -19,14 +27,17 @@
         <SearchTickerForm
           @submit="searchTicket"
           :isLoading="isLoading"
+          v-if="currentRoute =='tickets' || currentRoute =='home'"
         />
+        <div class="under_development" v-else>
+          We are under development yet...
+        </div>
       </div>
     </div>
     
-    <div class="tickets" id="tickets" ref="tickets">
-      <div class="ticket" v-for="ticket in tickets" :key="ticket.id">
-        asfsdfsdfsdfsadfs
-      </div>
+    <div class="tickets" id="tickets" ref="tickets" v-if="currentRoute =='tickets' || currentRoute =='home'">
+      <TicketItem class="ticket" v-for="ticket in tickets" :key="ticket.id">
+      </TicketItem>
       <div class="bottom" ref="tickets_bottom"></div>
     </div>
   </div>
@@ -34,9 +45,11 @@
 
 <script>
 import SearchTickerForm from '../components/SearchTickerForm.vue'
+import TicketItem from '../components/TicketItem.vue'
 export default {
   components: {
-    SearchTickerForm
+    SearchTickerForm,
+    TicketItem
   },
   data() {
     return {
@@ -66,18 +79,40 @@ export default {
     currentRoute() {
       return this.$route.name
     }
-  },
-  watch: {
-    tickets: function() {
-      // var element = this.$refs.tickets;
-      // console.log(element)
-      // element.scrollIntoView({ behavior: 'smooth' });
-    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+  .header{
+    width: 100%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 24px 48px;
+    color: #fff;
+    .logo{
+      align-self: flex-start;
+      margin-right: auto;
+      font-size: 26px;
+      font-weight: bold;
+    }
+    &_item{
+      font-size: 18px;
+      font-weight: bold;
+      margin-left: 16px;
+    }
+    .account{
+      border: 1px solid #fff;
+      border-radius: 4px;
+      padding: 4px 16px;
+      &:hover{
+        background-color: rgba(255,255,255,.5);
+        cursor: pointer;
+      }
+    }
+  }
   .home{
     width: 100%;
     height: 200vh;
@@ -86,7 +121,7 @@ export default {
     .search_container{
       width: 100%;
       min-height: 500px;
-      padding: 72px 48px; 
+      padding: 96px 48px; 
       background-image: url('../assets/background_train.jpg');
       background-size:     cover;
       background-repeat:   no-repeat;
@@ -130,9 +165,15 @@ export default {
     padding: 0 48px;
     .ticket{
       margin-top: 48px;
-      background-color: #fff;
       width: 100%;
-      min-height: 200px;
     }
+  }
+
+  .under_development{
+    width: 100%;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    font-size: 26px;
   }
 </style>
