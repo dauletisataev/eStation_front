@@ -1,27 +1,60 @@
 <template>
     <div class="search_ticket">
-        <input type="text" class="input from" placeholder="откуда">
-        <div class="direction_switcher">
+        <input v-model="from" type="text" class="input from" placeholder="Departure">
+        <div class="direction_switcher" @click="changeDirection()">
             <img src="../assets/icons/opposite_arrows.svg" class="icon" alt="">
         </div>
-        <input type="text" class="input to" placeholder="куда">
-        <div class="date">
-            <div class="text">Выберите дату</div>
-            <div class="icon"></div>
-        </div>
+        <input v-model="to" type="text" class="input to" placeholder="Destination">
+        <Datepicker v-model="date" placeholder="Choose date" input-class="date"/>
         <div class="search-button">
-            <img src="../assets/icons/search.svg" class="icon" alt="">
+            <img
+                src="../assets/icons/search.svg"
+                class="icon"
+                alt=""
+                v-if="!isLoading"
+                @click="search()">
+            <LoadingIcon v-else/>
         </div>
     </div>
 </template>
 
 <script>
+import Datepicker from 'vuejs-datepicker'
+import LoadingIcon from '../components/LoadingIcon.vue'
 export default {
-
+    components: {
+        Datepicker,
+        LoadingIcon
+    },
+    props: ['isLoading'],
+    data() {
+        return {
+            from: '',
+            to: '',
+            date: null
+        }
+    },
+    methods: {
+        changeDirection() {
+            const temp = this.from;
+            this.from = this.to;
+            this.to = temp;
+        },
+        search() {
+            this.$emit(
+                'submit', 
+                {
+                    from: this.from,
+                    to: this.to, 
+                    date: this.date
+                }
+            )
+        }
+    }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     .search_ticket{
         display: flex;
         justify-content: flex-start;
@@ -59,15 +92,8 @@ export default {
             height: 40px;
             background: #fff;
             display: flex;
-            border: 1px solid #ccc;
-            align-items: center;
-            padding: 12px; 
-            .text{
-                flex: 1;
-                &:hover{
-                    cursor: pointer;
-                }
-            }
+            font-size: 16px;
+            padding-left: 4px;
         }
         .search-button{
             width: 40px;

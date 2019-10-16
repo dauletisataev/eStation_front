@@ -16,15 +16,18 @@
         </div>
       </div>
       <div class="search_form">
-        <SearchTickerForm/>
+        <SearchTickerForm
+          @submit="searchTicket"
+          :isLoading="isLoading"
+        />
       </div>
     </div>
     
-    <div class="pages">
-      
-      <div class="page">
-        
+    <div class="tickets" id="tickets" ref="tickets">
+      <div class="ticket" v-for="ticket in tickets" :key="ticket.id">
+        asfsdfsdfsdfsadfs
       </div>
+      <div class="bottom" ref="tickets_bottom"></div>
     </div>
   </div>
 </template>
@@ -37,17 +40,39 @@ export default {
   },
   data() {
     return {
-      someData: 'I am some data from component'
+      someData: 'I am some data from component',
+      isLoading: false,
+      tickets: []
     }
   },
   methods: {
+    searchTicket(payload) {
+      this.isLoading = true;
+      setTimeout( () => {
+        this.isLoading = false;
+        this.tickets = this.tickets.concat([
+          {id: this.tickets.length+1},
+          {id: this.tickets.length+2},
+          {id: this.tickets.length+3},
+          {id: this.tickets.length+4}
+        ])
+        var element = this.$refs.tickets_bottom;
+        element.scrollIntoView({ behavior: 'smooth' });
+      }, 500);
+      console.log(payload);
+    }
   },
   computed: {
     currentRoute() {
       return this.$route.name
     }
   },
-  created() {
+  watch: {
+    tickets: function() {
+      // var element = this.$refs.tickets;
+      // console.log(element)
+      // element.scrollIntoView({ behavior: 'smooth' });
+    }
   }
 }
 </script>
@@ -55,11 +80,9 @@ export default {
 <style lang="scss" scoped>
   .home{
     width: 100%;
-    height: 100%;
+    height: 200vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
     .search_container{
       width: 100%;
       min-height: 500px;
@@ -98,13 +121,15 @@ export default {
       }
     }
   }
-  .pages{
+  .tickets{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    width: 90%;
-    align-items: flex-start;
-    .page{
+    width: 100%;
+    align-items: center;
+    padding: 0 48px;
+    .ticket{
+      margin-top: 48px;
       background-color: #fff;
       width: 100%;
       min-height: 200px;
