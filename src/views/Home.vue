@@ -1,11 +1,17 @@
 <template>
   <div class="home">
-    {{someData}}
+    <ticketItem>
+
+    </ticketItem>
   </div>
 </template>
 
 <script>
+import ticketItem from '../components/ticketItem.vue'
 export default {
+  components: {
+    ticketItem
+  },
   data() {
     return {
       someData: 'I am some data from component'
