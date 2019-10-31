@@ -1,11 +1,28 @@
 <template>
-  <div class="ticketItem">
+  <div class="travelItem">
       <div class="row mainticket">
           <div class="maincol col">
-              <div class="row"><div class="line"><span class="icon" id="trainicon"></span></div>
-              <div class="col">{{ticket.trainNum}}</div> 
-              <div class="col sfont">{{ticket.trainType}}</div>
-              </div>
+                <div class="row ">
+                      <div class="col sfont nowrap line">Ticket Number </div>
+                      <div class="col nowrap line">{{ticket.ticketNum}}</div>
+                </div>
+                <div class="row">
+                  <div class="col sfont nowrap line">Passenger </div>
+                  <div class="col nowrap line">{{ticket.userFname}}&nbsp;{{ticket.userLname}}</div>
+                </div>
+                <div class="row">
+                  <div class="col sfont nowrap line">Document</div>
+                  <div class="col nowrap line">{{ticket.docID}}</div>
+                </div>
+          </div>
+          <div class="maincol col">
+              <div class="row">
+                  <div class="line">
+                      <span class="icon" id="trainicon"></span>
+                    </div>
+                   <div class="col">{{ticket.trainNum}}</div> 
+                   <div class="col sfont">{{ticket.trainType}}</div>
+                </div>
               <div class="row">
                 <div class="nowrap line bold">
                   {{ticket.from}}
@@ -32,51 +49,29 @@
                 </div>
               </div>
           </div>
-          <div class="maincol col">
+          <div class=" col shorter">
               <div class="row nowrap">
                   <div class="col sfont">{{ticket.seats[0].type}}</div>
                   <div class="col bold">{{ticket.seats[0].price}}</div>
               </div>
-              <div class="row nowrap">
-                  <div class="col sfont">{{ticket.seats[1].type}}</div>
-                  <div class="col bold">{{ticket.seats[1].price}}</div>
-              </div>
-          </div>
-          <div class="col center">
-              <button class="button" v-on:click="show = !show">
-                    <div v-if="!show">
-                        Choose train
-                    </div>
-                    <div v-else>
-                        Cancel
-                    </div>
-                    </button>
           </div>
       </div>
-    <div v-if="show">
-    <SeatComponent></SeatComponent>
-    </div>
   </div>
 
 
 </template>
 
-
 <script>
-import SeatComponent from '../components/SeatComponent.vue'
 export default {
-    data() {
-        return {
-            show: false
-        }},
-    components: {
-        SeatComponent
-    }, 
     props: {
         ticket: {
             type: Object,
             default: () => { 
                 return {
+                    userFname: 'Mika',
+                    userLname: 'Akanova',
+                    ticketNum: '00000001',
+                    docID: '1234567',
                     trainNum: "016T",
                     trainType: "talgo",
                     from: "Nur-Sultan",
@@ -103,7 +98,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .ticketItem{      
+    .travelItem{
+        background: #fff;
         .mainticket{
             padding-top: 10px;
             padding-left: 10px;
@@ -139,6 +135,10 @@ export default {
         }
         .longer{
             flex-grow: 2;
+            margin-top: 10px;
+        }
+        .shorter{
+            flex-grow: 0.5;
         }
         .nowrap{
             flex-wrap: nowrap;

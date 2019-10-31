@@ -1,11 +1,27 @@
 <template>
     <div class="search_ticket">
-        <input v-model="from" type="text" class="input from" placeholder="Departure">
+        <v-select
+            v-model="from"
+            class="from dropdown"
+            :options="cities.filter(city => city != to)"
+            placeholder="Choose departure station"
+        />
+        <!-- <input v-model="from" type="text" class="input from" placeholder="Departure"> -->
         <div class="direction_switcher" @click="changeDirection()">
             <img src="../assets/icons/opposite_arrows.svg" class="icon" alt="">
         </div>
-        <input v-model="to" type="text" class="input to" placeholder="Destination">
-        <Datepicker v-model="date" placeholder="Choose date" input-class="date"/>
+        <v-select
+            v-model="to"
+            class="to dropdown"
+            :options="cities.filter(city => city != from)"
+            placeholder="Choose destination station"
+        />
+        <Datepicker
+            v-model="date"
+            placeholder="Choose date"
+            input-class="date"
+            :disabledDates="disabledDates"
+        />
         <div class="search-button">
             <img
                 src="../assets/icons/search.svg"
@@ -31,7 +47,11 @@ export default {
         return {
             from: '',
             to: '',
-            date: null
+            date: null,
+            disabledDates: {
+                to: new Date(Date.now() - 8640000)
+            },
+            cities: ['Nursultan', 'Almaty']
         }
     },
     methods: {
@@ -41,6 +61,10 @@ export default {
             this.to = temp;
         },
         search() {
+            if(!(this.from && this.to && this.date)) {
+                alert('fill the form fully')
+                return
+            }
             this.$emit(
                 'submit', 
                 {
@@ -63,14 +87,19 @@ export default {
         width: 100%;
         align-items: center;
         flex-wrap: wrap;
-        .input{
-            width: 300px;
-            height: 40px;
-            border: none;
+        .dropdown{
             flex: 1;
-            padding-left: 12px; 
-            font-size: 16px;
-            border-left: 1px solid #ccc;
+            .vs__dropdown-toggle{
+                width: 100%;
+                height: 40px;
+                border: none;
+                border-radius: 0;
+                padding-left: 12px; 
+                font-size: 16px;
+                border-left: 1px solid #ccc;
+                background: #fff;
+                color: #000;
+            }
         }
         .direction_switcher{
             display: flex;

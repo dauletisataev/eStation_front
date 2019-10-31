@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <Header blackMode/>
     <router-view></router-view>
   </div>
 </template>

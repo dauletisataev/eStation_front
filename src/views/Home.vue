@@ -1,13 +1,5 @@
 <template>
   <div class="home">
-    <div class="header">
-      <div class="logo">
-        eStation
-      </div>
-      <div class="contacts header_item">Contacts</div>
-      <div class="account header_item" @click="$router.push('/login')">Login</div>
-      <div class="account header_item">My account</div>
-    </div>
     <div class="search_container">
       <div class="swithcer">
         <div
@@ -35,7 +27,8 @@
       </div>
     </div>
     
-    <div class="tickets" id="tickets" ref="tickets" v-if="currentRoute =='tickets' || currentRoute =='home'">
+    <div class="tickets"
+          id="tickets" ref="tickets" v-if="currentRoute =='tickets' || currentRoute =='home'">
       <TicketItem class="ticket" v-for="ticket in tickets" :key="ticket.id">
       </TicketItem>
       <div class="bottom" ref="tickets_bottom"></div>
@@ -84,35 +77,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .header{
-    width: 100%;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 24px 48px;
-    color: #fff;
-    .logo{
-      align-self: flex-start;
-      margin-right: auto;
-      font-size: 26px;
-      font-weight: bold;
-    }
-    &_item{
-      font-size: 18px;
-      font-weight: bold;
-      margin-left: 16px;
-    }
-    .account{
-      border: 1px solid #fff;
-      border-radius: 4px;
-      padding: 4px 16px;
-      &:hover{
-        background-color: rgba(255,255,255,.5);
-        cursor: pointer;
-      }
-    }
-  }
   .home{
     width: 100%;
     height: 200vh;

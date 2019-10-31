@@ -2,10 +2,7 @@
   <div class="ticketItem">
       <div class="row mainticket">
           <div class="maincol col">
-              <div class="row"><div class="line"><span class="icon" id="trainicon"></span></div>
-              <div class="col">{{ticket.trainNum}}</div> 
-              <div class="col sfont">{{ticket.trainType}}</div>
-              </div>
+              <div class="row sfont"><div class="line"><span class="icon" id="trainicon"></span></div>{{ticket.trainNum}}</div>
               <div class="row">
                 <div class="nowrap line bold">
                   {{ticket.from}}
@@ -43,42 +40,22 @@
               </div>
           </div>
           <div class="col center">
-              <button class="button" v-on:click="show = !show">
-                    <div v-if="!show">
-                        Choose train
-                    </div>
-                    <div v-else>
-                        Cancel
-                    </div>
-                    </button>
+              <button class="button">Choose train</button>
           </div>
       </div>
-    <div v-if="show">
-    <SeatComponent></SeatComponent>
-    </div>
   </div>
 
 
 </template>
 
-
 <script>
-import SeatComponent from '../components/SeatComponent.vue'
 export default {
-    data() {
-        return {
-            show: false
-        }},
-    components: {
-        SeatComponent
-    }, 
     props: {
         ticket: {
             type: Object,
             default: () => { 
                 return {
                     trainNum: "016T",
-                    trainType: "talgo",
                     from: "Nur-Sultan",
                     to: "Almaty",
                     destTime:"08:00",
@@ -161,7 +138,7 @@ export default {
             background-image: url('../assets/icons/right-arrow.svg');
         }
         #trainicon{
-            margin-right:30px;
+            margin-right:10px;
             margin-left: 5px; 
             width: 20px;
             height: 20px;
@@ -178,7 +155,7 @@ export default {
         .maincol{
             border-right-style:inset; 
             border-right-width: 1.5px;
-            margin-right: 20px;
+            margin-right: 8px;
             margin-left: 3px;
         }
         .center{
