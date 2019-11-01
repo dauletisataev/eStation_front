@@ -86,7 +86,7 @@ export default {
       width: 100%;
       min-height: 500px;
       padding: 96px 48px; 
-      background-image: url('../assets/background_train.jpg');
+      background-image: url('../assets/background.jpg');
       background-size:     cover;
       background-repeat:   no-repeat;
       background-position: center center;

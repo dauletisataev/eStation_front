@@ -9,6 +9,7 @@ import Profile from './views/Profile.vue'
 import Trips from './components/profile/Trips.vue'
 import Orders from './components/profile/Orders.vue'
 import Info from './components/profile/Info.vue'
+import AdminPage from './views/AdminPage.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -76,6 +77,11 @@ export default new Router({
           component: Info,
         }
       ]
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: AdminPage
     }
   ]
 })

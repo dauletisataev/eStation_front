@@ -37,16 +37,17 @@ export default {
             }
             axios({
                 method: 'post',
-                url: 'http://localhost:8080/passengers',
+                url: 'http://5.101.181.188:8085/auth/passenger/signup/',
                 data: {
-                    phone: '43434234234',
-                    email: 'demo@demo.demo',
-                    password: 'qwerty',
-                    user: {
-                        lName: "lName",
-                        fName: "fName"
-                    }
+                    username: 'dake@gmail.com',
+                    first_name: 'daulet',
+                    last_name: 'issatayev',
+                    password: '123456'
                 }
+            }).then(function(r) {
+                console.log(r)
+                this.$store.commit('setLogedIn', true)
+                this.$router.push('/profile');
             });
         }
     }

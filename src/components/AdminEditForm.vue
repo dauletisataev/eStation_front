@@ -1,44 +1,49 @@
 <template>
-    <div class="form">
-        <div class="header">Login to the portal</div>
+    <div class="search_ticket form">
+        <div class="header">Sign Up in the portal</div>
         <input v-model="email" type="text" placeholder="email address">
+        <input v-model="name" type="text" placeholder="name">
+        <input v-model="surname" type="text" placeholder="surname">
+        <input v-model="phone" type="number" placeholder="phones">
         <input v-model="password" type="password" placeholder="password">
         <button type="submit" class="btn" @click="submit()">
-            LOGIN
+            SIGN UP
         </button>
-        <button class="btn signup" @click="$router.push('/sign/up')">
-            GO TO SIGNUP
+        <button class="btn login" @click="$router.push('/sign/in')">
+            GO TO LOGIN
         </button>
     </div>
 </template>
 
 <script>
 import axios from 'axios';
+// import { appUrl } from '../../config/consts.js'
 export default {
     data(){
         return {
             email: '',
+            name: '',
+            surname: '',
+            phone: '',
             password: '' 
         }
     },
     methods: {
         submit() {
+            // let _this = this
             if(!(this.email && this.password)){
                 alert('fill the form')
                 return
             }
-            let _this = this
             axios({
                 method: 'post',
-                url: 'http://5.101.181.188:8085/auth/passenger/signin/',
+                url: 'http://10.101.22.207:8080/auth/passenger/signup',
                 data: {
                     username: 'dake@gmail.com',
+                    first_name: 'daulet',
+                    last_name: 'issatayev',
                     password: '123456'
                 }
-            }).then(function(response) {
-                console.log(response)
-                _this.$store.commit('setLogedIn', true)
-                _this.$router.push('/profile');
             });
         }
     }
@@ -46,10 +51,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .signup{
+    .login{
         background-color: #fff !important;
         color: #fb7b4c !important;
         border: 1px solid #fb7b4c;
         border-radius: 3px;
+    }
+    .search_ticket{
+        display: flex;
+        justify-content: flex-start;
+        padding: 24px;
+        background-color: rgba(0,0,0, .2); 
+        width: 100%;
+        align-items: center;
+        flex-wrap: wrap;
     }
 </style>
